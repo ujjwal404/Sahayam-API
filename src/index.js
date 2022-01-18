@@ -30,6 +30,10 @@ DatabaseConnect.connect(DB);
 
 // Apollo Server Config
 const server = new ApolloServer({
+	cors: {
+		origin: '*',
+		credentials: true
+	},
 	schema,
 	context: ({ req }) => {
 		const token = req.headers.authorization;
