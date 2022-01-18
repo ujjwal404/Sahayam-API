@@ -25,7 +25,7 @@ app.use(
 		contentSecurityPolicy: process.env.NODE_ENV === 'production' ? undefined : false
 	})
 );
-app.use(cors({ origin: 'https://localhost:3000' }));
+app.use(cors({ origin: '*' }));
 DatabaseConnect.connect(DB);
 
 // Apollo Server Config
