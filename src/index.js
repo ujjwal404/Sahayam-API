@@ -40,7 +40,9 @@ const server = new ApolloServer({
 		const contextID = Utils.getUser(token);
 		// console.log(user);
 		return { DBModel, ValidationModel, contextID };
-	}
+	},
+	introspection: true,
+	playground: true
 });
 server.applyMiddleware({ app, path: '/api' });
 
