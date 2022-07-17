@@ -34,7 +34,7 @@ const Mutation = {
       // validate the data
       const Value = await ValidationModel.User.SignUp.validateAsync(values.user);
       let email_check = Value.email
-       let user_check = await DBModel.user.findOne({ email_check });
+       let user_check = await DBModel.User.findOne({ email_check });
       if (user_check) {
          throw new Error('Email is already registered. Please sign in.');
       }
