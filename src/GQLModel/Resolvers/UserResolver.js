@@ -32,8 +32,13 @@ const Mutation = {
   signUp: async (_, values, {DBModel, ValidationModel}) => {
     try {
       // validate the data
-      // todo  no checking if already exists? - Handle the error Accordingly
       const Value = await ValidationModel.User.SignUp.validateAsync(values.user);
+      let email_check = Value.email
+       let user_check = await DBModel.NGO.findOne({ email_check });
+      if (user_check) {
+         throw new Error('Email is already registered. Please sign in.');
+      }
+
       const hashedPassword = await bcrypt.hash(Value.password, 10);
 
       const savedUser = await DBModel.User.create({
