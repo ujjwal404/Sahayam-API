@@ -64,15 +64,17 @@ const Mutation = {
       user = await DBModel.NGO.findOne({
         email
       });
+
+      //still not found then not registered
+      if (!user) {
+        throw new AuthenticationError('User does not exist. Please Signup.');
+      }
+
       const valid = await bcrypt.compare(password, user.password);
       if (!valid) {
         throw new AuthenticationError('Incorrect credentials');
       }
       return jwt.sign({id: user._id, ngo: true}, process.env.JWT_SECRET);
-    }
-    //still not found then not registered
-    if (!user) {
-      throw new AuthenticationError('User does not exist');
     }
     // validate for the normal user
     const valid = await bcrypt.compare(password, user.password);
