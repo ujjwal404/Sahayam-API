@@ -34,9 +34,13 @@ const Mutation = {
       // validate the data
       const Value = await ValidationModel.User.SignUp.validateAsync(values.user);
       let email_check = Value.email
-       let user_check = await DBModel.NGO.findOne({ email_check });
+       let user_check = await DBModel.user.findOne({ email_check });
       if (user_check) {
          throw new Error('Email is already registered. Please sign in.');
+      }
+      user_check = await DBModel.NGO.findOne({ email_check });
+      if (user_check) {
+         throw new Error('A NGO is already registered with the same email. Please use a different email.');
       }
 
       const hashedPassword = await bcrypt.hash(Value.password, 10);

@@ -44,6 +44,10 @@ const Mutation={
       if (ngo_check) {
          throw new Error('Email is already registered. Please sign in.');
       }
+      ngo_check = await DBModel.user.findOne({ email_check });
+      if (ngo_check) {
+         throw new Error('A user is registered with same email. Please sign up with a different email.');
+      }
       
       const hashedPassword = await bcrypt.hash(Value.password, 10);
 
