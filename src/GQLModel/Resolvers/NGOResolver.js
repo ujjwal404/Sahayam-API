@@ -40,8 +40,8 @@ const Mutation={
     try {
       const Value = await ValidationModel.NGO.RegisterNGO.validateAsync(ngo);
     let email = Value.email
-      let ngo = await DBModel.NGO.findOne({ email });
-      if (ngo) {
+      let ngocheck = await DBModel.NGO.findOne({ email });
+      if (ngocheck) {
          throw new AuthenticationError('Email is already registered. Please sign in.');
       }
       
