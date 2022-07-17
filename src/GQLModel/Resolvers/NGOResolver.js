@@ -39,6 +39,12 @@ const Mutation={
   registerNGO: async (_, {ngo}, {ValidationModel, DBModel})=>{
     try {
       const Value = await ValidationModel.NGO.RegisterNGO.validateAsync(ngo);
+    let email = Value.email
+      let ngo = await DBModel.NGO.findOne({ email });
+      if (ngo) {
+         throw new AuthenticationError('Email is already registered. Please sign in.');
+      }
+      
       const hashedPassword = await bcrypt.hash(Value.password, 10);
 
       const savedNGO = await DBModel.NGO.create({

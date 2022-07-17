@@ -2,7 +2,7 @@ const Joi = require('joi');
 
 const RegisterNGO = Joi.object({
   name: Joi.string().pattern(new RegExp('^[a-zA-Z ]{2,40}$')).required(),
-  location: Joi.string().pattern(new RegExp(/^[a-zA-Z\s]{2,40}\s*,\s*[a-zA-Z\s]{2,40}$/)).required(),
+  location: Joi.string().pattern(new RegExp('^[a-zA-Z ]{2,40}$')).required(),
   email: Joi.string().email().required(),
   password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{6,40}$')).required(),
   contact: Joi.string().pattern(new RegExp('^[0-9]{10}$')).required(),
